@@ -9,7 +9,7 @@ import Settings from "../Images/settings.svg";
 import Support from "../Images/support.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -42,17 +42,23 @@ const Sidebar = () => {
                 ></div>
                 <div className="burgerMenu"></div>
             </div>
-            <div className={closeMenu === false ? "profileContainer" : "profileContainer active"}>
+            <div className={closeMenu ? "profileContainer active" : "profileContainer"}>
                 <img src={Profile} alt="profile" className="profile" />
-                <div className={closeMenu === false ? "profileContents show" : "profileContents"}>
-                    <p className="name">Hello, admin👋</p>
-                    <p>admin@gmail.com</p>
-                </div>
+
+                {props.name && (
+                    <div className={closeMenu ? "profileContents" : "profileContents show"}>
+                        <p className="name">Hello, {props.name}👋</p>
+                        <p>{props.email}</p>
+                    </div>
+                )}
             </div>
+
+
+
             <div className={closeMenu === false ? "contentsContainer" : "contentsContainer active"}>
                 <ul>
-                    <li className={location.pathname === "/" ? "active" : ""}>
-                        <div onClick={() => handleIconClick("/")}>
+                    <li className={location.pathname === "/dashboard" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/dashboard")}>
                             <img src={Dashboard} alt="dashboard" />
                             {!closeMenu && <span className="label">Dashboard</span>}
                             {closeMenu && <span className="text">Dashboard</span>}
