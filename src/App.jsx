@@ -6,7 +6,7 @@ import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import Filter from "./pages/Filter";
 import Settings from "./pages/Settings";
-import Logout from "./pages/Logout";
+
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -48,7 +48,6 @@ function App() {
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/filter" element={<Filter />} />
                       <Route path="/settings" element={<Settings />} />
-                      <Route path="/logout" element={<Logout />} />
                   </Routes>
                 )}
             </div>
