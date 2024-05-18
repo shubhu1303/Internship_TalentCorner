@@ -1,6 +1,9 @@
 /* Add this CSS transition */
 
+.sidebar.active .contentsContainer li:hover .text {
+    display: inline-block;
 
+}
 /* Your existing CSS */
 @import "./_variables";
 
@@ -137,7 +140,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        padding: 5rem 0 0 0;/* Ensure it appears below the logo and burger menu */
+        padding: 4rem 0 0 0;/* Ensure it appears below the logo and burger menu */
         
     
         img {
@@ -147,8 +150,7 @@ body {
         }
     
         .profileContents {
-            position: absolute;
-            padding: 0 0 0 4rem;
+            padding: 0 0 0 1rem;
             
     
             p.name {
@@ -208,6 +210,7 @@ body {
                     margin: 0 0 0 0.5rem;
                     vertical-align: middle; /* Add this line */
                 }
+    
 
                 .label {
                     position: absolute;
@@ -232,15 +235,17 @@ body {
                 }
         
 
-                /* Show the text when icon is hovered */
-                &:hover .text {
-                    display: inline-block;
-                }
+               
             }
 
             li.active {
                 background-color: $veryLightGreen;
+                color: $blue;
+                font-weight: bold;
 
+                a {
+                    color: $blue;
+                }
                 .label {
                     color: $blue;
                 }
@@ -249,6 +254,8 @@ body {
             li:hover {
                 background-color: $lightGrey;
                 transition: 0.25s;
+                color: #4c51bf;
+                
             }
         }
     }
@@ -260,27 +267,25 @@ body {
 
     .logoContainer.active {
         justify-content: center;
-        width:100%;
+        
         h2.title {
             opacity: 0;
         }
     
     }
     .logoContainer.active .logo {
-        padding: 1rem 0;
+        margin: 2rem 0;
         border-radius: 50%;
         border: 1px solid #6d6565; /* Optional: Adds a border around the circle */
         box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.7);
         object-fit: cover;
-        width: 115px !important;
-        height: 115px !important;
+        width: 80px;
+        height: auto;
         transition: 0.5s all; /* Add transition for logo size */
     }
 
     
-    .sidebar.active .contentsContainer li:hover .text {
-        display: inline-block;
-    }
+   
 
     .burgerContainer.active {
         transition: 0.5s all;
@@ -301,6 +306,7 @@ body {
     }
 
     .profileContainer {
+        padding: 4rem 0 0 0;
         .profileContents {
             opacity: 0;
         }
@@ -312,4 +318,8 @@ body {
         }
     }
     
+    
 }
+
+
+

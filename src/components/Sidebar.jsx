@@ -7,11 +7,12 @@ import Performance from "../Images/performance.svg";
 import News from "../Images/news.svg";
 import Settings from "../Images/settings.svg";
 import Support from "../Images/support.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
 const Sidebar = (props) => {
+    const location = useLocation();
     const navigate = useNavigate();
 
     const [closeMenu, setCloseMenu] = useState(false);
@@ -20,16 +21,22 @@ const Sidebar = (props) => {
         setCloseMenu(!closeMenu);
     };
 
-    const handleIconClick = () => {
-        signOut(auth)
-            .then(() => {
-                // Log out successful
-                navigate("/"); // Redirect to the home page
-            })
-            .catch((error) => {
-                // An error happened
-                console.error(error);
-            });
+    const handleIconClick = (path) => {
+        if (path === "/logout") {
+            signOut(auth)
+                .then(() => {
+                    // Log out successful
+                    navigate("/"); // Redirect to the home page
+                })
+                .catch((error) => {
+                    // An error happened
+                    console.error(error);
+                });
+        } else {
+            if (closeMenu || !closeMenu) {
+                navigate(path);
+            }
+        }
     };
 
     return (
@@ -47,56 +54,58 @@ const Sidebar = (props) => {
                 ></div>
                 <div className="burgerMenu"></div>
             </div>
-            <div className={closeMenu ? "profileContainer active" : "profileContainer"}>
+            <div className={closeMenu ? "profileContainer " : "profileContainer active"}>
                 <img src={Profile} alt="profile" className="profile" />
 
-                {props.name && (
-                    <div className={closeMenu ? "profileContents" : "profileContents show"}>
+                
+                    <div className="profileContents">
                         <p className="name">Hello, {props.name}👋</p>
                         <p>{props.email}</p>
                     </div>
-                )}
+                
             </div>
+
+
 
             <div className={closeMenu === false ? "contentsContainer" : "contentsContainer active"}>
                 <ul>
-                    <li>
-                        <div onClick={() => navigate("/dashboard")}>
+                    <li className={location.pathname === "/dashboard" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/dashboard")}>
                             <img src={Dashboard} alt="dashboard" />
                             {!closeMenu && <span className="label">Dashboard</span>}
                             {closeMenu && <span className="text">Dashboard</span>}
                         </div>
                     </li>
-                    <li>
-                        <div onClick={() => navigate("/users")}>
+                    <li className={location.pathname === "/users" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/users")}>
                             <img src={Support} alt="users" />
                             {!closeMenu && <span className="label">Users</span>}
                             {closeMenu && <span className="text">Users</span>}
                         </div>
                     </li>
-                    <li>
-                        <div onClick={() => navigate("/profile")}>
+                    <li className={location.pathname === "/profile" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/profile")}>
                             <img src={News} alt="profile" />
                             {!closeMenu && <span className="label">Profile</span>}
                             {closeMenu && <span className="text">Profile</span>}
                         </div>
                     </li>
-                    <li>
-                        <div onClick={() => navigate("/filter")}>
+                    <li className={location.pathname === "/filter" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/filter")}>
                             <img src={Performance} alt="filter" />
                             {!closeMenu && <span className="label">Filters</span>}
                             {closeMenu && <span className="text">Filters</span>}
                         </div>
                     </li>
-                    <li>
-                        <div onClick={() => navigate("/settings")}>
+                    <li className={location.pathname === "/settings" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/settings")}>
                             <img src={Settings} alt="Settings" />
                             {!closeMenu && <span className="label">Settings</span>}
                             {closeMenu && <span className="text">Settings</span>}
                         </div>
                     </li>
-                    <li>
-                        <div onClick={handleIconClick}>
+                    <li className={location.pathname === "/logout" ? "active" : ""}>
+                        <div onClick={() => handleIconClick("/logout")}>
                             <img src={Transactions} alt="logout" />
                             {!closeMenu && <span className="label">Logout</span>}
                             {closeMenu && <span className="text">Logout</span>}
